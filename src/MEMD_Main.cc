@@ -27,7 +27,8 @@ int main()
 	double *seq = new double[NDIM*NDIR];
 	std::vector<double> env_mean(NDIM*N);
    
-	std::ifstream data1("F:/TEST/xdata.csv");
+	//std::ifstream data1("F:/TEST/xdata.csv");
+	std::ifstream data1("F:/TEST/ma.csv");
 	std::string line;
 	int i = 0;
 	while (getline(data1, line))
@@ -64,7 +65,7 @@ int main()
 			m[j] = r[j];
 		}
 		
-		writeFileTabbed<double>( "F:/TEST/mdata.txt", m, N, NDIM );
+		//writeFileTabbed<double>( "F:/TEST/mdata.txt", m, N, NDIM );
 		
 		// computation of mean and stopping criterion		
 		stop_sift = stopSift( m, seq, env_mean );
@@ -109,8 +110,8 @@ int main()
 			//printVector<double>( env_mean, N, NDIM );
 			//printVector<double>( m, N, NDIM );
 
-			writeFileTabbed<double>( "F:/TEST/env_mean.txt", env_mean, N, NDIM );
-			writeFileTabbed<double>( "F:/TEST/mdata.txt", m, N, NDIM );			
+			//writeFileTabbed<double>( "F:/TEST/env_mean.txt", env_mean, N, NDIM );
+			//writeFileTabbed<double>( "F:/TEST/mdata.txt", m, N, NDIM );			
 						
 			// computation of mean and stopping criterion
 			stop_sift = stopSift( m, seq, env_mean );

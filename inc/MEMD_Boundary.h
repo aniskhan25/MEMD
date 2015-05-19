@@ -13,6 +13,6 @@ std::vector<double> X
 , std::bitset<3*T>& tmax
 );
 
-#include "MEMD_Boundary.cc"
+#include "MEMD_Boundary.tpp"
 
 #endif
