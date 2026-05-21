@@ -3,10 +3,11 @@
 
 #include <vector>
 #include <bitset>
+#include <cstddef>
 
 inline void printBitVector( std::vector<bool> bitvec );
 
-template<unsigned int T>
+template<size_t T>
 inline void printBitVector( std::bitset<T> bitvec );
 
 template<typename T>

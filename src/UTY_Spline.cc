@@ -774,11 +774,8 @@ void splineCubicSpecial (
 	, unsigned int N2
 	)
 {	
-	int i;
-	int j;
-	int jhi;
-	int k;
-	double yval;
+	unsigned int i;
+	unsigned int j;
 
 	/******************************************************************/
 
@@ -846,16 +843,16 @@ void splineCubicSpecial (
 	ypp[N1-1] = ( b[N1-1] - xmult * b[N1-2] ) / a3[N1-1];
 	ypp[N1-2] = ( b[N1-2] - a4[N1-2] * ypp[N1-1] ) / a3[N1-2];
 
-	for ( i = N1 - 3; 0 <= i; i-- )
+	for ( int ri = static_cast<int>(N1) - 3; ri >= 0; --ri )
 	{
-		ypp[i] = ( b[i] - a4[i] * ypp[i+1] - a5[i] * ypp[i+2] ) / a3[i];
+		ypp[ri] = ( b[ri] - a4[ri] * ypp[ri+1] - a5[ri] * ypp[ri+2] ) / a3[ri];
 	}
 
 	/******************************************************************/
 
 	double dt;
 	double h;	
-	int ival;	
+	unsigned int ival;	
 
 	for ( i = 0; i < N2; i++ )
 	{
@@ -915,7 +912,9 @@ void splineCubicTaha(
 	, unsigned int N2
 	)
 {	
-	for ( int i = 0; i < N2; i++ )
+	(void) xi;
+
+	for ( unsigned int i = 0; i < N2; i++ )
 	{
 		a1[i] = 0.0;
 		a2[i] = 0.0;
@@ -935,7 +934,7 @@ void splineCubicTaha(
 	//
 	//  Set up the intermediate equations.
 	//
-	for ( int i = 1; i < N2 - 1; i++ )
+	for ( unsigned int i = 1; i < N2 - 1; i++ )
 	{
 		b [i] = ( y[i + 1] - y[i] ) / ( x[i + 1] - x[i] ) - ( y[i] - y[i - 1] ) / ( x[i] - x[i - 1] );
 		a2[i] = ( x[i + 1] - x[i] ) / 6.0;
@@ -959,7 +958,7 @@ void splineCubicTaha(
 
 	double dt;
 	double h;
-	int ival;
+	unsigned int ival;
 
 	//
 	//  Determine the interval [ T(I), T(I+1) ] that contains TVAL.
@@ -967,9 +966,9 @@ void splineCubicTaha(
 	//
 
 	ival = N2 - 2;
-	for (int tval = 1; tval < N1 + 1; tval++)
+	for (unsigned int tval = 1; tval < N1 + 1; tval++)
 	{
-		for (int i = 0; i < N2 - 1; i++)
+		for (unsigned int i = 0; i < N2 - 1; i++)
 		{
 			if (tval < x[i + 1])
 			{
@@ -1050,10 +1049,9 @@ void penta(
 	//    Output, double PENTA[N], the solution of the linear system.
 	//
 {
-	int i;	
 	double xmult;
 
-	for (i = 1; i < N2 - 1; i++)
+	for (unsigned int i = 1; i < N2 - 1; i++)
 	{
 		xmult = a2[i] / a3[i - 1];
 		a3[i] = a3[i] - xmult * a4[i - 1];
@@ -1069,7 +1067,7 @@ void penta(
 	a3[N2 - 1] = a3[N2 - 1] - xmult * a4[N2 - 2];
 	ypp[N2 - 1] = (b[N2 - 1] - xmult * b[N2 - 2]) / a3[N2 - 1];
 	ypp[N2 - 2] = (b[N2 - 2] - a4[N2 - 2] * ypp[N2 - 1]) / a3[N2 - 2];
-	for (i = N2 - 3; 0 <= i; i--)
+	for (int i = static_cast<int>(N2) - 3; i >= 0; --i)
 	{
 		ypp[i] = (b[i] - a4[i] * ypp[i + 1] - a5[i] * ypp[i + 2]) / a3[i];
 	}

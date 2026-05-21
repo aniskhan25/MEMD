@@ -2,17 +2,18 @@
 #define MEMD_PEAKS_H
 
 #include <bitset>
+#include <cstddef>
 #include <vector>
 
 #include "UTY_Types.h"
 
-template<unsigned int T>
+template<size_t T>
 void peaks ( 
 	std::vector<double> X
 	, std::bitset<T>& locs 
 	);
 
-template<unsigned int T>
+template<size_t T>
 void peaks ( 
 	std::vector<double> X
 	, const std::bitset<T>& a
@@ -20,7 +21,7 @@ void peaks (
 	, int type = MAXIMA 
 	);
 
-template<unsigned int T>
+template<size_t T>
 void localPeaks ( 
 	std::vector<double> X
 	, std::bitset<T>& loc_min

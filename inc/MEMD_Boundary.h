@@ -3,8 +3,9 @@
 
 #include <vector>
 #include <bitset>
+#include <cstddef>
 
-template<unsigned int T>
+template<size_t T>
 bool boundaryConditions( 
 std::vector<double> X
 , const std::bitset<T> indmin

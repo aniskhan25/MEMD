@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <bitset>
+#include <cstddef>
 
 #include "UTY_Types.h"
 
@@ -10,21 +11,21 @@ inline int prime ( int n );
 
 inline double myRound( double x );
 
-template<unsigned int T>
+template<size_t T>
 void zeroCrossing( std::vector<double> X, std::bitset<T>& zerCross );
 
 inline bool getSign( double data );
 
-template<unsigned int T>
+template<size_t T>
 int getLength( std::bitset<T> bitvec );
 
-template<unsigned int T>
+template<size_t T>
 int getIndex( std::bitset<T> bitvec, int direction );
 
-template<unsigned int T>
+template<size_t T>
 std::vector<int> getIndex( std::bitset<T> bitvec, unsigned int startidx, unsigned int endidx, int direction = FORWARD );
 
-template<unsigned int T>
+template<size_t T>
 std::bitset<T> flipLR( std::bitset<T> bitvec, unsigned int startidx, unsigned int endidx );
 
 #include "UTY_Common.tpp"

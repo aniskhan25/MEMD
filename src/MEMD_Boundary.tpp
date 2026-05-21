@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <bitset>
+#include <cstddef>
 #include <algorithm>
 
 #include "MEMD_Config.h"
@@ -10,7 +11,7 @@
 #include "UTY_Common.h"
 #include "UTY_Disp.h"
 
-template<unsigned int T>
+template<size_t T>
 bool boundaryConditions( 
 std::vector<double> X
 , const std::bitset<T> indmin
@@ -22,10 +23,10 @@ std::vector<double> X
 	//printf("In\n");
 
 	unsigned int 
-	lenmin, lenmax
-	, lsym, rsym;
+	lenmin, lenmax;
 	
 	int 	
+	lsym, rsym,
 	firstmin, firstmax	
 	, lastmin, lastmax
 	, first_tlmin, first_tlmax

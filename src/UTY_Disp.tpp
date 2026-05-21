@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <bitset>
+#include <cstddef>
 
 inline void printBitVector( std::vector<bool> bitvec )
 {
@@ -16,7 +17,7 @@ inline void printBitVector( std::vector<bool> bitvec )
 	std::cout << std::endl;
 }
 
-template<unsigned int T>
+template<size_t T>
 inline void printBitVector( std::bitset<T> bitvec )
 {
 	for ( unsigned int i = 0; i<bitvec.size(); ++i)

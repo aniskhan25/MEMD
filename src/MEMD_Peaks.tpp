@@ -1,11 +1,12 @@
 
 #include <vector>
 #include <bitset>
+#include <cstddef>
 #include <cmath>
 
 #include "MEMD_Config.h"
 
-template<unsigned int T>
+template<size_t T>
 void peaks ( std::vector<double> X, std::bitset<T>& locs )
 {
 	double diff1, diff2;
@@ -21,7 +22,7 @@ void peaks ( std::vector<double> X, std::bitset<T>& locs )
 	}
 }
 
-template<unsigned int T>
+template<size_t T>
 void peaks ( std::vector<double> X, const std::bitset<T>& a, std::bitset<T>& locs, int type )
 {
 	double diff1, diff2;
@@ -53,7 +54,7 @@ void peaks ( std::vector<double> X, const std::bitset<T>& a, std::bitset<T>& loc
 	}
 }
 
-template<unsigned int T>
+template<size_t T>
 void localPeaks ( std::vector<double> X, std::bitset<T>& loc_min, std::bitset<T>& loc_max )
 {	
 	std::bitset<N> a;

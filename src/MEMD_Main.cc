@@ -7,6 +7,7 @@
 #include <cmath>
 #include <algorithm>
 #include <cstdlib>
+#include <iomanip>
 
 //#define LOGGING_LEVEL_1
 
@@ -18,29 +19,41 @@
 #include "MEMD_Criterion.h"
 #include "MEMD_Envelopes.h"
 
-int main()
+int main(int argc, char* argv[])
 {	
 	unsigned int nbit, n_imf;
-	double *x = new double[N*NDIM];
-	double *r = new double[N*NDIM];
-	double *m = new double[N*NDIM];
-	double *seq = new double[NDIM*NDIR];
+	const std::string input_file = (argc > 1) ? argv[1] : "data/demo_signal.csv";
+	const std::string output_prefix = (argc > 2) ? argv[2] : "output/memd";
+
+	double *x = new double[N*NDIM]();
+	double *r = new double[N*NDIM]();
+	double *m = new double[N*NDIM]();
+	double *seq = new double[NDIM*NDIR]();
 	std::vector<double> env_mean(NDIM*N);
-   
-	//std::ifstream data1("F:/TEST/xdata.csv");
-	std::ifstream data1("F:/TEST/ma.csv");
+
+	std::ifstream data1(input_file.c_str());
+	if (!data1) {
+		std::cerr << "Unable to open input file: " << input_file << std::endl;
+		return 1;
+	}
+
 	std::string line;
-	int i = 0;
-	while (getline(data1, line))
+	unsigned int i = 0;
+	while (getline(data1, line) && i < N*NDIM)
 	{
 		std::stringstream  lineStream(line);
 		std::string  cell;
-		while (getline(lineStream, cell, ','))
+		while (getline(lineStream, cell, ',') && i < N*NDIM)
 		{
 			double ds = atof(cell.c_str());
 			x[i] = ds;
 			++i;
 		}
+	}
+	if (i != N*NDIM) {
+		std::cerr << "Expected " << (N*NDIM) << " values (" << N << " rows x " << NDIM
+		          << " columns), but read " << i << " from " << input_file << std::endl;
+		return 1;
 	}
 	
 	int64 starttime = GetTimeMs64();
@@ -90,7 +103,7 @@ int main()
 			std::cout << "emd:warning, forced stop of EMD : too small amplitude" << std::endl;
 			else
 			std::cout << "forced stop of EMD : too small amplitude" << std::endl;
-			//break;
+			stop_sift = true;
 		}
 		
 		nbit = 0;
@@ -129,7 +142,9 @@ int main()
 		std::cout << nbit << std::endl;
 		//printVector( m, N, NDIM );
 	
-		writeFileTabbed<double>( "F:/TEST/mdata.txt", m, N, NDIM );
+		std::ostringstream imf_file;
+		imf_file << output_prefix << "_imf" << std::setw(2) << std::setfill('0') << (n_imf + 1) << ".txt";
+		writeFileTabbed<double>( imf_file.str(), m, N, NDIM );
 
 		++n_imf;
 						
@@ -147,13 +162,13 @@ int main()
 	int64 endtime= GetTimeMs64();
 	std::cout << "Elapsed time: " << (endtime - starttime)/1000 << " seconds.\n";
 
-	//printVector<double>( r, N, NDIM );
+	writeFileTabbed<double>( output_prefix + "_residue.txt", r, N, NDIM );
+	std::cout << "Wrote " << n_imf << " IMF file(s) and residue with prefix " << output_prefix << std::endl;
 
-	x = NULL; free(x);
-	r = NULL; free(r);
-	m = NULL; free(m);
-	seq = NULL; free(seq);
+	delete[] x;
+	delete[] r;
+	delete[] m;
+	delete[] seq;
 
-	getchar();
 	return 0;
 }

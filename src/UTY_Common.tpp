@@ -2,11 +2,12 @@
 #include <iostream>
 #include <vector>
 #include <bitset>
+#include <cstddef>
 #include <cstdlib>
 
 #include "MEMD_Config.h"
 
-template<unsigned int T>
+template<size_t T>
 int getLength( std::bitset<T> bitvec )
 {
 	unsigned int len = 0;	
@@ -17,7 +18,7 @@ int getLength( std::bitset<T> bitvec )
 	return len;
 }
 
-template<unsigned int T>
+template<size_t T>
 int getIndex( std::bitset<T> bitvec, int direction )
 {	
 	unsigned int n = bitvec.size();
@@ -40,7 +41,7 @@ int getIndex( std::bitset<T> bitvec, int direction )
 	return -1;
 }
 
-template<unsigned int T>
+template<size_t T>
 std::vector<int> getIndex( std::bitset<T> bitvec, unsigned int startidx, unsigned int endidx, int direction )
 {	
 	std::vector<int> idx;
@@ -72,7 +73,7 @@ std::vector<int> getIndex( std::bitset<T> bitvec, unsigned int startidx, unsigne
 	return idx;
 }
 
-template<unsigned int T>
+template<size_t T>
 std::bitset<T> flipLR( std::bitset<T> bitvec, unsigned int startidx, unsigned int endidx )
 {	
 	unsigned int n = bitvec.size();
@@ -103,7 +104,7 @@ inline bool getSign( double data )
 	return false;
 }
 
-template<unsigned int T>
+template<size_t T>
 void zeroCrossing( std::vector<double> X, std::bitset<T>& zerCross )
 {	
 	bool sign1, sign2;

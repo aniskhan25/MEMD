@@ -1,0 +1,5 @@
+memd
+output/
+data/bench_*.csv
+*.o
+.DS_Store
